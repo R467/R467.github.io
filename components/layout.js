@@ -3,6 +3,7 @@ import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import headShot from '../public/images/doesnotexist.jpg?resize&size=300'
+import Image from 'next/image'
 
 const name = 'Your Name'
 export const siteTitle = 'Next.js Sample Website'
@@ -28,7 +29,7 @@ export default function Layout({ children, home }) {
       <header className={styles.header}>
         {home ? (
           <>
-            <img
+            <Image
               priority
               src={headShot.src}
               className={utilStyles.borderCircle}
@@ -42,7 +43,7 @@ export default function Layout({ children, home }) {
           <>
             <Link href="/">
               <a>
-                <img
+                <Image
                   priority
                   src={headShot.src}
                   className={utilStyles.borderCircle}

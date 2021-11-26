@@ -8,6 +8,9 @@ module.exports = withPlugins([
     handleImages: ['jpg', 'png', 'svg'],
     optimizeImagesInDev: true,
     defaultImageLoader: 'responsive-loader',
+    responsive: {
+      adapter: require('next-transpile-modules')(['responsive-loader/sharp'])
+    }
   }],
 
   // your other plugins here
