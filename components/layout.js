@@ -30,7 +30,7 @@ export default function Layout({ children, home }) {
           <>
             <img
               priority
-              src={headShot}
+              src={headShot.src}
               className={utilStyles.borderCircle}
               height={144}
               width={144}
@@ -44,7 +44,7 @@ export default function Layout({ children, home }) {
               <a>
                 <img
                   priority
-                  src={headShot}
+                  src={headShot.src}
                   className={utilStyles.borderCircle}
                   height={108}
                   width={108}
