@@ -5,7 +5,9 @@ module.exports = withPlugins([
   [optimizedImages, {
     /* config for next-optimized-images */
     optimizeImages: true,
-    hhandleImages: ['jpg', 'png', 'svg'],
+    handleImages: ['jpg', 'png', 'svg'],
+    optimizeImagesInDev: true,
+    defaultImageLoader: 'responsive-loader',
   }],
 
   // your other plugins here

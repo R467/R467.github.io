@@ -2,7 +2,7 @@ import Head from 'next/head'
 import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
-import headShot from '../public/images/doesnotexist.jpg'
+import headShot from '../public/images/doesnotexist.jpg?resize&size=300'
 
 const name = 'Your Name'
 export const siteTitle = 'Next.js Sample Website'
