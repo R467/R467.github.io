@@ -1,0 +1,66 @@
+<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width"/><meta charSet="utf-8"/><link rel="icon" href="/favicon.ico"/><meta name="description" content="Learn how to build a personal website using Next.js"/><meta property="og:image" content="https://og-image.vercel.app/Next.js%20Sample%20Website.png?theme=light&amp;md=0&amp;fontSize=75px&amp;images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg"/><meta name="og:title" content="Next.js Sample Website"/><meta name="twitter:card" content="summary_large_image"/><title>Wordle helper</title><meta name="next-head-count" content="8"/><link rel="preload" href="/_next/static/css/eb76dd91e5da2f0d.css" as="style"/><link rel="stylesheet" href="/_next/static/css/eb76dd91e5da2f0d.css" data-n-g=""/><link rel="preload" href="/_next/static/css/c39f9723b4064ac0.css" as="style"/><link rel="stylesheet" href="/_next/static/css/c39f9723b4064ac0.css" data-n-p=""/><noscript data-n-css=""></noscript><script defer="" nomodule="" src="/_next/static/chunks/polyfills-5cd94c89d3acac5f.js"></script><script src="/_next/static/chunks/webpack-514908bffb652963.js" defer=""></script><script src="/_next/static/chunks/framework-91d7f78b5b4003c8.js" defer=""></script><script src="/_next/static/chunks/main-dffcc8d986d9cae7.js" defer=""></script><script src="/_next/static/chunks/pages/_app-fc377793a1d2b101.js" defer=""></script><script src="/_next/static/chunks/557-275910878e64eda1.js" defer=""></script><script src="/_next/static/chunks/pages/posts/%5Bid%5D-8d97e974f6009b03.js" defer=""></script><script src="/_next/static/hU7RGS7r4bubR4PRVasLf/_buildManifest.js" defer=""></script><script src="/_next/static/hU7RGS7r4bubR4PRVasLf/_ssgManifest.js" defer=""></script><script src="/_next/static/hU7RGS7r4bubR4PRVasLf/_middlewareManifest.js" defer=""></script></head><body><div id="__next"><div class="layout_container__fbLkO"><header class="layout_header__kY0Lt"><h2 class="utils_headingLg__5535D"><a class="utils_colorInherit__mSH_x" href="/">Random notes and musings</a></h2></header><main><article><h1 class="utils_headingXl__u25Y2">Wordle helper</h1><div class="utils_lightText__eUzGY"><time dateTime="2022-01-27">January 27, 2022</time></div><div><p>As an excuse to brush up on my React and Next.js skills I have created <a href="https://github.com/R467/wordle-helper">web app</a> that can be used to solve <a href="https://www.powerlanguage.co.uk/wordle/">Wordle</a></p>
+<p>You can see it in action <a href="https://icy-ground-0b2064d10.1.azurestaticapps.net/">here</a></p>
+<p><img src="/images/wordle-helper/wordle-helper.png" alt="overview of the site"></p>
+<p>My main takeaways from this have been about managing state in React using hooks and context to share state between components in different branches of the tree</p>
+<p>The key here has been identifying the lowest common parent and the minimum amount of state that needs to be shared between components</p>
+<p>Also, when creating components it is much easier to keep an array of data in state as opposed to a component that is ready to render</p>
+<p>For example, I originally had a createRow() function that returned a row component directly</p>
+<pre><code>function createRow() {
+    return (
+        &#x3C;div key={index} data-row={index} className="presentLetterRow">     
+            &#x3C;PresentLetter index={index} order={0} tryCreateNewRow={tryCreateNewRow} letterUpdated={letterUpdated} />       
+            &#x3C;PresentLetter index={index} order={1} tryCreateNewRow={tryCreateNewRow} letterUpdated={letterUpdated} />
+            &#x3C;PresentLetter index={index} order={2} tryCreateNewRow={tryCreateNewRow} letterUpdated={letterUpdated} />
+            &#x3C;PresentLetter index={index} order={3} tryCreateNewRow={tryCreateNewRow} letterUpdated={letterUpdated} />
+            &#x3C;PresentLetter index={index} order={4} tryCreateNewRow={tryCreateNewRow} letterUpdated={letterUpdated} />
+        &#x3C;/div>
+    );
+}
+
+</code></pre>
+<p>This worked OK at first but when it came time to manage the state of each PresentLetter I hit a wall</p>
+<p>The solution was to keep the state of the row in an array</p>
+<pre><code>function tryCreateNewRow() {
+
+        const lastRow = presentRows[presentRows.length - 1];
+
+        const anyPopulated = lastRow?.letters.filter((l) => {
+            return l.populated;
+        })
+
+
+        if(lastRow &#x26;&#x26; anyPopulated.length == 0) {
+            return null;
+        }
+
+        return {
+            letters: [
+                {
+                    order : 0,
+                    populated: false
+                },
+                {
+                    order : 1,
+                    populated: false
+                },
+                {
+                    order : 2,
+                    populated: false
+                },
+                {
+                    order : 3,
+                    populated: false
+                },
+                {
+                    order : 4,
+                    populated: false
+                }
+            ]
+        }
+
+    }
+
+</code></pre>
+<p>That array can then be used to render the component and the state of the child components can easily be updated</p>
+<p>n.b. I know this code is far from optimised, it is a work in progress</p>
+</div></article></main><div class="layout_backToHome__9sjx_"><a href="/">← Back to home</a></div></div></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"postData":{"id":"wordle-helper","contentHtml":"\u003cp\u003eAs an excuse to brush up on my React and Next.js skills I have created \u003ca href=\"https://github.com/R467/wordle-helper\"\u003eweb app\u003c/a\u003e that can be used to solve \u003ca href=\"https://www.powerlanguage.co.uk/wordle/\"\u003eWordle\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003eYou can see it in action \u003ca href=\"https://icy-ground-0b2064d10.1.azurestaticapps.net/\"\u003ehere\u003c/a\u003e\u003c/p\u003e\n\u003cp\u003e\u003cimg src=\"/images/wordle-helper/wordle-helper.png\" alt=\"overview of the site\"\u003e\u003c/p\u003e\n\u003cp\u003eMy main takeaways from this have been about managing state in React using hooks and context to share state between components in different branches of the tree\u003c/p\u003e\n\u003cp\u003eThe key here has been identifying the lowest common parent and the minimum amount of state that needs to be shared between components\u003c/p\u003e\n\u003cp\u003eAlso, when creating components it is much easier to keep an array of data in state as opposed to a component that is ready to render\u003c/p\u003e\n\u003cp\u003eFor example, I originally had a createRow() function that returned a row component directly\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003efunction createRow() {\n    return (\n        \u0026#x3C;div key={index} data-row={index} className=\"presentLetterRow\"\u003e     \n            \u0026#x3C;PresentLetter index={index} order={0} tryCreateNewRow={tryCreateNewRow} letterUpdated={letterUpdated} /\u003e       \n            \u0026#x3C;PresentLetter index={index} order={1} tryCreateNewRow={tryCreateNewRow} letterUpdated={letterUpdated} /\u003e\n            \u0026#x3C;PresentLetter index={index} order={2} tryCreateNewRow={tryCreateNewRow} letterUpdated={letterUpdated} /\u003e\n            \u0026#x3C;PresentLetter index={index} order={3} tryCreateNewRow={tryCreateNewRow} letterUpdated={letterUpdated} /\u003e\n            \u0026#x3C;PresentLetter index={index} order={4} tryCreateNewRow={tryCreateNewRow} letterUpdated={letterUpdated} /\u003e\n        \u0026#x3C;/div\u003e\n    );\n}\n\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eThis worked OK at first but when it came time to manage the state of each PresentLetter I hit a wall\u003c/p\u003e\n\u003cp\u003eThe solution was to keep the state of the row in an array\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003efunction tryCreateNewRow() {\n\n        const lastRow = presentRows[presentRows.length - 1];\n\n        const anyPopulated = lastRow?.letters.filter((l) =\u003e {\n            return l.populated;\n        })\n\n\n        if(lastRow \u0026#x26;\u0026#x26; anyPopulated.length == 0) {\n            return null;\n        }\n\n        return {\n            letters: [\n                {\n                    order : 0,\n                    populated: false\n                },\n                {\n                    order : 1,\n                    populated: false\n                },\n                {\n                    order : 2,\n                    populated: false\n                },\n                {\n                    order : 3,\n                    populated: false\n                },\n                {\n                    order : 4,\n                    populated: false\n                }\n            ]\n        }\n\n    }\n\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003eThat array can then be used to render the component and the state of the child components can easily be updated\u003c/p\u003e\n\u003cp\u003en.b. I know this code is far from optimised, it is a work in progress\u003c/p\u003e\n","title":"Wordle helper","date":"2022-01-27"}},"__N_SSG":true},"page":"/posts/[id]","query":{"id":"wordle-helper"},"buildId":"hU7RGS7r4bubR4PRVasLf","isFallback":false,"gsp":true,"scriptLoader":[]}</script></body></html>
